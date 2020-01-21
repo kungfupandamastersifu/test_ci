@@ -22,7 +22,7 @@ jobs:
 
   build-windows:
     runs-on: windows-latest
-      steps:
+    steps:
       - uses: actions/checkout@v1
       - name: configure
         run: mkdir build && cd build && cmake ..
@@ -33,7 +33,7 @@ jobs:
 
   build-windows:
     runs-on: macos-latest
-      steps:
+    steps:
       - uses: actions/checkout@v1
       - name: configure
         run: mkdir build && cd build && cmake ..
