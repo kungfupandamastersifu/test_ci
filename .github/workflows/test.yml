@@ -7,12 +7,70 @@ on:
     branches:
     - master
 jobs:
-  build_and_test:
-    runs-on: ubuntu-18.04
+  build-ubuntu:
+
+    runs-on: ubuntu-latest
+    
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
-    - name: compile
-      run: gcc -Wall main.c -o main
+    - uses: actions/checkout@v1
+    - name: configure
+      run: mkdir build && cd build && cmake -DCMAKE_CXX_FLAGS="-Werror" ..
+    - name: build
+      run: cmake --build build
     - name: test
-      run: ./main
+      run: cd build && ctest
+
+  build-windows:
+    runs-on: windows-latest
+      steps:
+      - uses: actions/checkout@v1
+      - name: configure
+        run: mkdir build && cd build && cmake ..
+      - name: build
+        run: cmake --build build --config Release
+      - name: test
+        run: cd build && ctest
+
+  build-windows:
+    runs-on: macos-latest
+      steps:
+      - uses: actions/checkout@v1
+      - name: configure
+        run: mkdir build && cd build && cmake ..
+      - name: build
+        run: cmake --build build
+      - name: test
+        run: cd build && ctest
+
+  # build_and_test:
+  #   name: ${{ matrix.config.name }}
+  #   runs-on: ${{ matrix.config.os }}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       config:
+  #       - {
+  #           name: "Windows Latest MSVC", artifact: "Windows-MSVC.tar.xz",
+  #           os: windows-latest,
+  #           build_type: "Release", cc: "cl", cxx: "cl",
+  #           environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+  #         }
+  #       - {
+  #           name: "Ubuntu Latest GCC", artifact: "Linux.tar.xz",
+  #           os: ubuntu-latest,
+  #           build_type: "Release", cc: "gcc", cxx: "g++"
+  #         }
+  #       - {
+  #           name: "macOS Latest Clang", artifact: "macOS.tar.xz",
+  #           os: macos-latest,
+  #           build_type: "Release", cc: "clang", cxx: "clang++"
+  #         }
+  #   steps:
+  #   - name: checkout
+  #     uses: actions/checkout@v2
+  #   - name: config
+  #     run 
+  #     - name: compile
+  #     run: cc -Wall main.c -o main
+  #   - name: test
+  #     run: ./main
