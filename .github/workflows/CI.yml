@@ -23,8 +23,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       
+      - name: ls
+        run: ls
       - name: tar.gz
-        run: tar cvf main.tar.gz main
+        run: tar -cvf main.tar.gz ./main
       
       - name: Create Release
         id: create_release
