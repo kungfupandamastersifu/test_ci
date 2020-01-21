@@ -24,7 +24,7 @@ jobs:
     steps:
       
       - name: ls
-        run: ls
+        run: ls .
       - name: tar.gz
         run: tar -cvf main.tar.gz ./main
       
