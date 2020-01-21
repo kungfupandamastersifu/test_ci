@@ -1,11 +1,11 @@
 name: CI
-on:
-  push: #run when `git push` or `merge a pull request` into the master branch
-    branches:
-    - master
-  pull_request: #run `merge a pull request` into the master branch
-    branches:
-    - master
+on: [push]
+  # push: #run when `git push` or `merge a pull request` into the master branch
+  #   branches:
+  #   - master
+  # pull_request: #run `merge a pull request` into the master branch
+  #   branches:
+  #   - master
 jobs:
   build_and_test:
     runs-on: ubuntu-18.04
@@ -16,6 +16,7 @@ jobs:
       run: gcc -Wall main.c -o main
     - name: test
       run: ./main
+  
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build_and_test
