@@ -16,17 +16,19 @@ jobs:
       run: gcc -Wall main.c -o main
     - name: test
       run: ./main
+    - name: pack
+      run: tar -cvf main.tar.gz ./main  
+    - name: upload
+      uses: actions/upload-artifact@v1
+      with: 
+        path: ./main.tar.gz
+        name: main.tar.gz
   
   publish:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build_and_test
     runs-on: ubuntu-18.04
     steps:
-      
-      - name: ls
-        run: ls .
-      - name: tar.gz
-        run: tar -cvf main.tar.gz ./main
       
       - name: Create Release
         id: create_release
@@ -39,6 +41,12 @@ jobs:
           draft: false
           prerelease: false
       
+      - name: download artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: main.tar.gz
+          path: ./
+
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1.0.1
