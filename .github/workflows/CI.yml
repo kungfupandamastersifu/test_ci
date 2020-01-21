@@ -13,6 +13,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: compile
-        run: gcc -Wall main.c -o mai
+        run: gcc -Wall main.c -o main
       - name: test
         run: ./main
