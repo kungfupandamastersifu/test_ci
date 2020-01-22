@@ -25,11 +25,11 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: configure
-        run: mkdir build && cd build && cmake ..
+        run: mkdir build & cd build & cmake ..
       - name: build
         run: cmake --build build --config Release
       - name: test
-        run: cd build && ctest
+        run: cd build & ctest
 
   build-mac:
     runs-on: macos-latest
