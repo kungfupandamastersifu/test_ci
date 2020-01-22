@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: configure
-        run: mkdir build & cd build & dir #cmake -G "Visual Studio 16 2019" -A x64 ..
+        run: mkdir build; cd build; cmake -G "Visual Studio 16 2019" -A x64 ..
       - name: build
         run: cmake --build build --config Release
       - name: test
