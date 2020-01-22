@@ -1,4 +1,3 @@
-name: test
 on: 
   push: #run when `git push` or `merge a pull request` into the master branch
     branches:
